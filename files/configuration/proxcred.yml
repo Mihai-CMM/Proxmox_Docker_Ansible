@@ -1,5 +1,5 @@
 proxuser: root@pam
-proxpass: qwe123
+proxpass: {YourOwn}
 vmuser: root
 superadmin: superadmin
 vmpass: 12345678
