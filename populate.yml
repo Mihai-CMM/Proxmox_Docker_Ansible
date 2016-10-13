@@ -1,0 +1,54 @@
+---
+- hosts: proxmox
+
+  vars_files:
+      - files/configuration/proxcred.yml
+      - files/configuration/configuration.yml
+  # gather_facts: no
+  remote_user: root
+  tasks:
+  # - name: Configure sipxcom
+  #   shell: sipxecs-setup --noui --sip_domain "{{ sip_domain }}" --sip_realm "{{ sip_realm }}" --net_domain "{{ net_domain }}" --net_host "{{ net_host }}"
+  #
+  # # - name: Stop Iptables
+  # #   command: service iptables stop
+  #
+  # - name: Start services
+  #   script: files/scripts/start_services.sh
+
+
+  - name: copy superadmin.sql function to remote machine
+    copy: src="superadmin.sql"  dest="/var/log/superadmin.sql"
+
+
+  # - name: Execute psql script
+  #   shell: psql -U postgres SIPXCONFIG -f /var/log/superadmin.sql
+
+  # - name: Run psql.sh Script
+  #   script: files/scripts/psql.sh
+
+
+# - hosts: localhost
+#   tasks:
+#   - name: Use REST API to populate servers
+#     script: files/scripts/add_users_API.py
+
+  # - name: Copy users.json
+  #   copy: src="files/json/users.json" dest="/var/log/users.json"
+  #
+  # - name: Copy  phones.json
+  #   copy: src="files/json/phones.json" dest="/var/log/phones.json"
+  # - name: Copy gateways.json
+  #   copy: src="files/json/gateways.json" dest="/var/log/gateways.json"
+  #
+  # - name: Copy dialplan.json
+  #   copy: src="files/json/dialplan.json" dest="/var/log/dialplan.json"
+  # - name: add users with API
+  #   script: files/scripts/add_users_API.py
+  #
+  # - name: add phones with API
+  #   script: files/scripts/add_phones_API.py
+  # - name: add gateways with API
+  #   script: files/scripts/add_gateways_API.py
+  # - name: add dialplan with API
+  #   script: files/scripts/add_rules_API.py

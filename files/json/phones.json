@@ -1,0 +1,509 @@
+{
+    "phones": [
+        {
+            "description": "Auto-provisioned\n  ID: F58\n  Version: 5.2.5.0639\n", 
+            "deviceVersion": "polycom4.1.5", 
+            "groups": null, 
+            "id": 4574, 
+            "lines": [
+                {
+                    "displayName": null, 
+                    "extension": null, 
+                    "id": 4641, 
+                    "password": "HM0YZx73sBvx", 
+                    "registrationServer": "mihai.ezuce.ro", 
+                    "registrationServerPort": "0", 
+                    "uri": "sip:301@mihai.ezuce.ro", 
+                    "user": "301", 
+                    "userId": "301", 
+                    "voicemail": null
+                }
+            ], 
+            "model": {
+                "label": "Polycom VVX 600", 
+                "modelId": "polycomVVX600", 
+                "vendor": "Polycom", 
+                "versions": [
+                    "polycom4.1.X", 
+                    "polycom4.1.0", 
+                    "polycom4.1.2", 
+                    "polycom4.1.3", 
+                    "polycom4.1.4", 
+                    "polycom4.1.5", 
+                    "polycom4.1.6", 
+                    "polycom4.1.7", 
+                    "polycom4.1.8", 
+                    "polycom5.0.0", 
+                    "polycom5.0.1", 
+                    "polycom5.0.2", 
+                    "polycom5.1.1", 
+                    "polycom5.1.2", 
+                    "polycom5.1.3", 
+                    "polycom5.2.0", 
+                    "polycom5.2.1", 
+                    "polycom5.2.2", 
+                    "polycom5.2.3", 
+                    "polycom5.3.0", 
+                    "polycom5.3.1", 
+                    "polycom5.4.0"
+                ]
+            }, 
+            "serialNo": "0004f26ad217"
+        }, 
+        {
+            "description": "Auto-provisioned\n  ID: Q48\n  Version: 4.1.7.1210\n", 
+            "deviceVersion": "polycom4.0.X", 
+            "groups": null, 
+            "id": 4553, 
+            "lines": [
+                {
+                    "displayName": null, 
+                    "extension": null, 
+                    "id": 4633, 
+                    "password": "123", 
+                    "registrationServer": "mihai.ezuce.ro", 
+                    "registrationServerPort": "0", 
+                    "uri": "sip:3001@mihai.ezuce.ro", 
+                    "user": "3001", 
+                    "userId": "3001", 
+                    "voicemail": null
+                }
+            ], 
+            "model": {
+                "label": "Polycom VVX 400", 
+                "modelId": "polycomVVX400", 
+                "vendor": "Polycom", 
+                "versions": [
+                    "polycom4.1.X", 
+                    "polycom4.1.0", 
+                    "polycom4.1.2", 
+                    "polycom4.1.3", 
+                    "polycom4.1.4", 
+                    "polycom4.1.5", 
+                    "polycom4.1.6", 
+                    "polycom4.1.7", 
+                    "polycom4.1.8", 
+                    "polycom5.0.0", 
+                    "polycom5.0.1", 
+                    "polycom5.0.2", 
+                    "polycom5.1.1", 
+                    "polycom5.1.2", 
+                    "polycom5.1.3", 
+                    "polycom5.2.0", 
+                    "polycom5.2.1", 
+                    "polycom5.2.2", 
+                    "polycom5.2.3", 
+                    "polycom5.3.0", 
+                    "polycom5.3.1", 
+                    "polycom5.4.0"
+                ]
+            }, 
+            "serialNo": "0004f280c3b3"
+        }, 
+        {
+            "description": "Auto-provisioned\n  ID: Y4H\n  Version: 5.2.5.0639\n", 
+            "deviceVersion": "polycom4.1.5", 
+            "groups": null, 
+            "id": 4583, 
+            "lines": [
+                {
+                    "displayName": null, 
+                    "extension": null, 
+                    "id": 4642, 
+                    "password": "XolIY76tZJUV", 
+                    "registrationServer": "mihai.ezuce.ro", 
+                    "registrationServerPort": "0", 
+                    "uri": "sip:302@mihai.ezuce.ro", 
+                    "user": "302", 
+                    "userId": "302", 
+                    "voicemail": null
+                }
+            ], 
+            "model": {
+                "label": "Polycom VVX 300", 
+                "modelId": "polycomVVX300", 
+                "vendor": "Polycom", 
+                "versions": [
+                    "polycom4.1.X", 
+                    "polycom4.1.0", 
+                    "polycom4.1.2", 
+                    "polycom4.1.3", 
+                    "polycom4.1.4", 
+                    "polycom4.1.5", 
+                    "polycom4.1.6", 
+                    "polycom4.1.7", 
+                    "polycom4.1.8", 
+                    "polycom5.0.0", 
+                    "polycom5.0.1", 
+                    "polycom5.0.2", 
+                    "polycom5.1.1", 
+                    "polycom5.1.2", 
+                    "polycom5.1.3", 
+                    "polycom5.2.0", 
+                    "polycom5.2.1", 
+                    "polycom5.2.2", 
+                    "polycom5.2.3", 
+                    "polycom5.3.0", 
+                    "polycom5.3.1", 
+                    "polycom5.4.0"
+                ]
+            }, 
+            "serialNo": "0004f280cc95"
+        }, 
+        {
+            "description": "Auto-provisioned\n  ID: QQ5\n  Version: 4.0.9.0509\n", 
+            "deviceVersion": "polycom4.0.X", 
+            "groups": null, 
+            "id": 4554, 
+            "lines": [
+                {
+                    "displayName": null, 
+                    "extension": null, 
+                    "id": 4632, 
+                    "password": "leH1mHh7emYa", 
+                    "registrationServer": "mihai.ezuce.ro", 
+                    "registrationServerPort": null, 
+                    "uri": "sip:300@mihai.ezuce.ro", 
+                    "user": "300", 
+                    "userId": "300", 
+                    "voicemail": null
+                }
+            ], 
+            "model": {
+                "label": "Polycom SoundPoint IP 335", 
+                "modelId": "polycom335", 
+                "vendor": "Polycom", 
+                "versions": [
+                    "polycom3.1.X", 
+                    "polycom3.2.X", 
+                    "polycom4.0.X", 
+                    "polycom4.1.X", 
+                    "polycom4.1.0"
+                ]
+            }, 
+            "serialNo": "0004f22f62ab"
+        }, 
+        {
+            "description": null, 
+            "deviceVersion": null, 
+            "groups": null, 
+            "id": 4576, 
+            "lines": null, 
+            "model": {
+                "label": "Unite Mobile", 
+                "modelId": "uniteMobileModel", 
+                "vendor": "eZuce", 
+                "versions": null
+            }, 
+            "serialNo": "12"
+        }, 
+        {
+            "description": null, 
+            "deviceVersion": null, 
+            "groups": null, 
+            "id": 4578, 
+            "lines": null, 
+            "model": {
+                "label": "Unite Mobile", 
+                "modelId": "uniteMobileModel", 
+                "vendor": "eZuce", 
+                "versions": null
+            }, 
+            "serialNo": "34"
+        }, 
+        {
+            "description": "Auto-provisioned\n  ID: 23A\n  Version: 4.1.7.1210\n", 
+            "deviceVersion": "polycom4.1.7", 
+            "groups": null, 
+            "id": 4585, 
+            "lines": [
+                {
+                    "displayName": "Mircea C", 
+                    "extension": null, 
+                    "id": 4645, 
+                    "password": "1234", 
+                    "registrationServer": "mihai.ezuce.ro", 
+                    "registrationServerPort": "0", 
+                    "uri": "\"Mircea C\"<sip:6666@mihai.ezuce.ro>", 
+                    "user": "6666", 
+                    "userId": "6666", 
+                    "voicemail": null
+                }
+            ], 
+            "model": {
+                "label": "Polycom VVX 400", 
+                "modelId": "polycomVVX400", 
+                "vendor": "Polycom", 
+                "versions": [
+                    "polycom4.1.X", 
+                    "polycom4.1.0", 
+                    "polycom4.1.2", 
+                    "polycom4.1.3", 
+                    "polycom4.1.4", 
+                    "polycom4.1.5", 
+                    "polycom4.1.6", 
+                    "polycom4.1.7", 
+                    "polycom4.1.8", 
+                    "polycom5.0.0", 
+                    "polycom5.0.1", 
+                    "polycom5.0.2", 
+                    "polycom5.1.1", 
+                    "polycom5.1.2", 
+                    "polycom5.1.3", 
+                    "polycom5.2.0", 
+                    "polycom5.2.1", 
+                    "polycom5.2.2", 
+                    "polycom5.2.3", 
+                    "polycom5.3.0", 
+                    "polycom5.3.1", 
+                    "polycom5.4.0"
+                ]
+            }, 
+            "serialNo": "0004f28125de"
+        }, 
+        {
+            "description": "ds", 
+            "deviceVersion": "polycom4.0.X", 
+            "groups": null, 
+            "id": 4587, 
+            "lines": null, 
+            "model": {
+                "label": "Polycom VVX IP 1500", 
+                "modelId": "polycomVVX1500", 
+                "vendor": "Polycom", 
+                "versions": [
+                    "polycom3.1.X", 
+                    "polycom3.2.X", 
+                    "polycom4.0.X", 
+                    "polycom4.1.X", 
+                    "polycom4.1.0", 
+                    "polycom4.1.2", 
+                    "polycom4.1.3", 
+                    "polycom4.1.4", 
+                    "polycom4.1.5", 
+                    "polycom4.1.6", 
+                    "polycom4.1.7", 
+                    "polycom4.1.8", 
+                    "polycom5.0.0", 
+                    "polycom5.0.1", 
+                    "polycom5.0.2", 
+                    "polycom5.1.1", 
+                    "polycom5.1.2", 
+                    "polycom5.1.3", 
+                    "polycom5.2.0", 
+                    "polycom5.2.1", 
+                    "polycom5.2.2", 
+                    "polycom5.2.3", 
+                    "polycom5.3.0", 
+                    "polycom5.3.1", 
+                    "polycom5.4.0"
+                ]
+            }, 
+            "serialNo": "123456789098"
+        }, 
+        {
+            "description": "Auto-provisioned\n  ID: 5TQ\n  Version: 5.2.0.8330\n", 
+            "deviceVersion": "polycom4.1.7", 
+            "groups": null, 
+            "id": 4573, 
+            "lines": [
+                {
+                    "displayName": "Costache Mihai", 
+                    "extension": null, 
+                    "id": 4643, 
+                    "password": "123", 
+                    "registrationServer": "mihai.ezuce.ro", 
+                    "registrationServerPort": "0", 
+                    "uri": "\"Costache Mihai\"<sip:2001@mihai.ezuce.ro>", 
+                    "user": "2001", 
+                    "userId": "2001", 
+                    "voicemail": null
+                }
+            ], 
+            "model": {
+                "label": "Polycom VVX 400", 
+                "modelId": "polycomVVX400", 
+                "vendor": "Polycom", 
+                "versions": [
+                    "polycom4.1.X", 
+                    "polycom4.1.0", 
+                    "polycom4.1.2", 
+                    "polycom4.1.3", 
+                    "polycom4.1.4", 
+                    "polycom4.1.5", 
+                    "polycom4.1.6", 
+                    "polycom4.1.7", 
+                    "polycom4.1.8", 
+                    "polycom5.0.0", 
+                    "polycom5.0.1", 
+                    "polycom5.0.2", 
+                    "polycom5.1.1", 
+                    "polycom5.1.2", 
+                    "polycom5.1.3", 
+                    "polycom5.2.0", 
+                    "polycom5.2.1", 
+                    "polycom5.2.2", 
+                    "polycom5.2.3", 
+                    "polycom5.3.0", 
+                    "polycom5.3.1", 
+                    "polycom5.4.0"
+                ]
+            }, 
+            "serialNo": "0004f28125b8"
+        }, 
+        {
+            "description": "Auto-provisioned\r\n  ID: A1M\r\n  Version: 4.0.8.1608\r\n", 
+            "deviceVersion": "polycom3.2.X", 
+            "groups": null, 
+            "id": 4547, 
+            "lines": [
+                {
+                    "displayName": "testare", 
+                    "extension": null, 
+                    "id": 4631, 
+                    "password": "123", 
+                    "registrationServer": "mihai.ezuce.ro", 
+                    "registrationServerPort": null, 
+                    "uri": "sip:2000@mihai.ezuce.ro", 
+                    "user": "2000", 
+                    "userId": "2000", 
+                    "voicemail": null
+                }
+            ], 
+            "model": {
+                "label": "Polycom SoundPoint IP 335", 
+                "modelId": "polycom335", 
+                "vendor": "Polycom", 
+                "versions": [
+                    "polycom3.1.X", 
+                    "polycom3.2.X", 
+                    "polycom4.0.X", 
+                    "polycom4.1.X", 
+                    "polycom4.1.0"
+                ]
+            }, 
+            "serialNo": "0004f22f49d6"
+        }, 
+        {
+            "description": null, 
+            "deviceVersion": null, 
+            "groups": null, 
+            "id": 4577, 
+            "lines": null, 
+            "model": {
+                "label": "Unite Mobile", 
+                "modelId": "uniteMobileModel", 
+                "vendor": "eZuce", 
+                "versions": null
+            }, 
+            "serialNo": "23"
+        }, 
+        {
+            "description": "Auto-provisioned\r\n  ID: QYL\r\n  Version: 5.1.1.2986\r\n", 
+            "deviceVersion": "polycom4.0.X", 
+            "groups": null, 
+            "id": 4551, 
+            "lines": [
+                {
+                    "displayName": "Costache Mihai", 
+                    "extension": null, 
+                    "id": 4630, 
+                    "password": "123", 
+                    "registrationServer": "mihai.ezuce.ro", 
+                    "registrationServerPort": "0", 
+                    "uri": "\"Costache Mihai\"<sip:3000@mihai.ezuce.ro>", 
+                    "user": "3000", 
+                    "userId": "3000", 
+                    "voicemail": null
+                }
+            ], 
+            "model": {
+                "label": "Polycom VVX 500", 
+                "modelId": "polycomVVX500", 
+                "vendor": "Polycom", 
+                "versions": [
+                    "polycom4.0.X", 
+                    "polycom4.1.X", 
+                    "polycom4.1.0", 
+                    "polycom4.1.2", 
+                    "polycom4.1.3", 
+                    "polycom4.1.4", 
+                    "polycom4.1.5", 
+                    "polycom4.1.6", 
+                    "polycom4.1.7", 
+                    "polycom4.1.8", 
+                    "polycom5.0.0", 
+                    "polycom5.0.1", 
+                    "polycom5.0.2", 
+                    "polycom5.1.1", 
+                    "polycom5.1.2", 
+                    "polycom5.1.3", 
+                    "polycom5.2.0", 
+                    "polycom5.2.1", 
+                    "polycom5.2.2", 
+                    "polycom5.2.3", 
+                    "polycom5.3.0", 
+                    "polycom5.3.1", 
+                    "polycom5.4.0"
+                ]
+            }, 
+            "serialNo": "0004f2819f86"
+        }, 
+        {
+            "description": null, 
+            "deviceVersion": null, 
+            "groups": null, 
+            "id": 4579, 
+            "lines": null, 
+            "model": {
+                "label": "Unite Mobile", 
+                "modelId": "uniteMobileModel", 
+                "vendor": "eZuce", 
+                "versions": null
+            }, 
+            "serialNo": "45"
+        }, 
+        {
+            "description": null, 
+            "deviceVersion": null, 
+            "groups": null, 
+            "id": 4580, 
+            "lines": null, 
+            "model": {
+                "label": "Bria 3.x 4.x", 
+                "modelId": "counterpathCMCEnterprise", 
+                "vendor": "Counterpath", 
+                "versions": null
+            }, 
+            "serialNo": "32434"
+        }, 
+        {
+            "description": null, 
+            "deviceVersion": null, 
+            "groups": null, 
+            "id": 4582, 
+            "lines": null, 
+            "model": {
+                "label": "Bria 3.x 4.x", 
+                "modelId": "counterpathCMCEnterprise", 
+                "vendor": "Counterpath", 
+                "versions": null
+            }, 
+            "serialNo": "234234"
+        }, 
+        {
+            "description": null, 
+            "deviceVersion": null, 
+            "groups": null, 
+            "id": 4581, 
+            "lines": null, 
+            "model": {
+                "label": "Bria 3.x 4.x", 
+                "modelId": "counterpathCMCEnterprise", 
+                "vendor": "Counterpath", 
+                "versions": null
+            }, 
+            "serialNo": "324342342342"
+        }
+    ]
+}

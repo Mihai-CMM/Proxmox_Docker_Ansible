@@ -1,0 +1,34 @@
+---
+- hosts: localhost
+  strategy: debug
+  vars_files:
+      - files/configuration/proxcred.yml
+      - files/configuration/configuration.yml
+  tasks:
+  - name: Wait for proxmox machine SSHD to start
+    wait_for: host={{ vmIP  }} port=22 delay=10 timeout=320
+
+- hosts: proxmox
+  strategy: debug
+  gather_facts: no
+  remote_user: root
+  vars_files:
+      - files/configuration/proxcred.yml
+      - files/configuration/configuration.yml
+  tasks:
+  - name: Print url
+    debug: msg="https://download.ezuce.com/openuc-stage/{{oucVersion}}-unstable/openuc-{{oucVersion}}.0-centos.repo"
+  - name: Download desired openuc.repo
+    get_url:
+      force: yes
+      url: https://download.ezuce.com/openuc-stage/{{oucVersion}}-unstable/openuc-{{oucVersion}}.0-centos.repo
+      dest: /etc/yum.repos.d/openuc.repo
+      url_password: "{{ouc_download_user}}"
+      url_username: "{{ouc_download_pass}}"
+    register: get_url_log
+  - name: Print get_url_log_output
+    debug: var=get_url_log
+
+
+  - name: Installing openuc. Go get a coffee. It will take a while
+    script:  install_OUC.sh

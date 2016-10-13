@@ -1,0 +1,8 @@
+node: px3
+vmid: 9000
+vmIP: 10.3.0.60
+oucVersion: 16.04
+sip_domain: mihai.test
+sip_realm: mihai.test
+net_domain: mihai.test
+net_host: uc1

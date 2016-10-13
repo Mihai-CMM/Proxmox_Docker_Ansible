@@ -1,0 +1,77 @@
+{
+    "gateways": [
+        {
+            "address": "4.3.2.1", 
+            "addressPort": 0, 
+            "addressTransport": "none", 
+            "branch": null, 
+            "callerAliasInfo": {
+                "addPrefix": null, 
+                "anonymous": false, 
+                "defaultCallerAlias": null, 
+                "displayName": null, 
+                "ignoreUserInfo": false, 
+                "keepDigits": 0, 
+                "transformUserExtension": false, 
+                "urlParameters": null
+            }, 
+            "description": "desd", 
+            "deviceVersion": null, 
+            "enabled": true, 
+            "id": 19, 
+            "model": {
+                "label": "Acme 1000", 
+                "modelId": "acmeGatewayStandard", 
+                "vendor": "acme", 
+                "versions": null
+            }, 
+            "name": "acme1000", 
+            "outboundAddress": null, 
+            "outboundPort": 5060, 
+            "prefix": null, 
+            "serialNo": null, 
+            "shared": true, 
+            "useInternalBridge": true
+        }, 
+        {
+            "address": "1.2.3.4", 
+            "addressPort": 0, 
+            "addressTransport": "none", 
+            "branch": null, 
+            "callerAliasInfo": {
+                "addPrefix": null, 
+                "anonymous": false, 
+                "defaultCallerAlias": null, 
+                "displayName": null, 
+                "ignoreUserInfo": false, 
+                "keepDigits": 0, 
+                "transformUserExtension": false, 
+                "urlParameters": null
+            }, 
+            "description": "desc", 
+            "deviceVersion": "audiocodes6.0", 
+            "enabled": true, 
+            "id": 18, 
+            "model": {
+                "label": "AudioCodes Mediant 1000 PRI", 
+                "modelId": "audiocodesMediant1000", 
+                "vendor": "AudioCodes", 
+                "versions": [
+                    "audiocodes6.0", 
+                    "audiocodes5.8", 
+                    "audiocodes5.6", 
+                    "audiocodes5.4", 
+                    "audiocodes5.2", 
+                    "audiocodes5.0"
+                ]
+            }, 
+            "name": "AudiocodesMediant1000", 
+            "outboundAddress": null, 
+            "outboundPort": 5060, 
+            "prefix": null, 
+            "serialNo": null, 
+            "shared": true, 
+            "useInternalBridge": true
+        }
+    ]
+}

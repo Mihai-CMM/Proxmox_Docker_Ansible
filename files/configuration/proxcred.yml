@@ -1,0 +1,7 @@
+proxuser: root@pam
+proxpass: qwe123
+vmuser: root
+superadmin: superadmin
+vmpass: 12345678
+ouc_download_user: {YourOwn}
+ouc_download_pass: {YourOwn}
