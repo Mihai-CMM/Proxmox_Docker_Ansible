@@ -1,1 +1,477 @@
-DISABLE SELINUX ON THE TARGET MACHINE
+Complete instructions and diagrams will be published here:
+http://sipxcom.org/blog/
+and 
+http://blog.ezuce.com/
+
+
+Automating QA/testbed deployments with Proxmox, Docker and Ansible
+
+
+Proxmox Virtual Environment (https://www.proxmox.com/en/) is a complete server virtualization management solution, based on KVM (http://www.linux-kvm.org/page/Main_Page) and container virtualization, and is the weapon of choice for our QA team. This article should be seen as a follow up of the Ansible (https://www.ansible.com/) AWS blog posted earlier. We will not review the topics already discussed there. If you need a refresher please see the following {{link to Ansible AWS blog series }}
+
+
+Since our QA team is using Windows (https://www.microsoft.com/en-us/windows) to manage Proxmox, I’ve encountered some difficulties in running Ansible on their PC’s so I’ve decided to take advantage of the incredibly versatile tool called Docker (https://www.docker.com/). 
+
+
+Instructions on how to install Docker on Windows can be found at: https://docs.docker.com/engine/installation/windows/
+Overview
+
+
+On the management PC after we install Docker we will create a dockerfile that will install Ansible inside an Ubuntu (https://www.ubuntu.com/) 16.04 image and we will create an entry point that will execute a script which will call a Proxmox API wrapper to start a VM and then will invoke an Ansible playbook that will help us install/create/populate a Uniteme/sipXcom instance.
+
+
+We’ll be able to check the status of the VM from the web browser by accessing Proxmox URL from our management machine.
+Getting Started
+Step 1. Dockerfile
+The following is the Dockerfile we’ll use:
+$ cat Dockerfile
+FROM ubuntu:latest
+LABEL ansible_management=v1.0
+RUN echo "Installing ansible"
+RUN apt-get update -y
+RUN apt-get install software-properties-common -y
+RUN apt-add-repository ppa:ansible/ansible -y
+RUN apt-add-repository universe -y
+RUN apt-add-repository main -y
+RUN apt-get update -y
+RUN apt-get install ansible -y
+RUN apt-get install python-pip python-dev build-essential -y
+RUN apt-get install python-selinux -y
+RUN apt-get install rsync -y
+RUN pip install --upgrade pip
+RUN pip install configparser
+RUN pip install requests
+RUN pip install pyproxmox
+ENTRYPOINT  ./start.py
+
+
+As mentioned we will use latest Ubuntu (16.04 at the time of writing this blog), we will label that image as “ansible_management=v1.0” to be able to identify with ease newly created image. We will then install some dependencies needed to execute ‘ansible’ and ‘pyproxmox’ (Python wrapper for Proxmox API’s).
+
+
+At the end of the the Dockerfile we set the entry point to a startup script written in Python (https://www.python.org/) that will invoke Ansible commands and pyproxmox.
+
+
+To build your docker image you will need to run the following in the path where you have Dockerfile the following command:
+$ docker build -t management_machine:v1 .
+
+
+Wait for the command to complete and check your image with docker images:
+ [mcostache@localhost ~]$ docker images
+REPOSITORY                                                               TAG                 IMAGE ID            CREATED             SIZE
+management_machine                                                       v1                  34c09e467bc5        6 days ago          577.8 MB
+
+
+The final command that you will need to run will start a container that uses the above image after all the files are in place:
+$ docker run -v `pwd`:`pwd` -w `pwd` -i -t management_machine:v1
+Step 2.  Create startup.py
+If you simply want to copy and paste the script I created make sure you take caution with regards to indentation, as you may (or may not) know python is very sensitive to that.
+
+
+cat start.py
+#! /usr/bin/env python
+
+
+#Created by Mihai for QA and for fun
+#this is the main entry point for configuring and populating a full openuc server on proxmox
+#for how to use -README and blog entry on ezuce.com or follow code it is commented:)
+#you need python and pip installed
+#you need to ssh-copy-id for the ip of template you use centos/uniteme
+
+
+try:
+ import pip
+except ImportError, e:
+ pass # pip module doesn't exist, deal with it.
+
+
+
+
+#Step1 Create an inventory.ini file to be used by Ansible
+# we need to import a few python modules first
+
+
+
+
+import sys,requests,os
+sys.path.append('files/scripts')  # needed to import local modules in that path
+import create_inventory , start_proxmox_machine
+create_inventory.readConfig("files/configuration/configuration.yml")
+create_inventory.readCredentials("files/configuration/proxcred.yml")
+create_inventory.createInventory()
+
+
+#Step 2 make sure pypromox (proxmox API wrapper is installed) on the current machine
+
+
+try:
+        from pyproxmox import *
+except ImportError:
+        pip.main(['install', '--user', 'pyproxmox'])
+        from pyproxmox import *
+
+
+
+
+#Step 3 prompt user for upgrade/ install or populate
+os.system('clear')
+action = raw_input('Do you want to Upgrade/Install/Stop or Populate a new uniteme machine? Answer with Upgrade/Install/Stop/Populate\n')
+action=action.lower()
+
+
+if action == "install":
+
+
+#    - Start proxmox vm with proxmox API call ----
+    start_proxmox_machine.readCredentials("files/configuration/proxcred.yml")
+    start_proxmox_machine.readNode("files/configuration/configuration.yml")
+    start_proxmox_machine.startMachine()
+
+
+#    - Run ansible playbook to install openuc ----
+    os.system('ansible-playbook install.yml')
+
+
+
+
+
+
+elif action == "upgrade":
+    #    - Start proxmox vm with proxmox API call ----
+    start_proxmox_machine.readCredentials("files/configuration/proxcred.yml")
+    start_proxmox_machine.readNode("files/configuration/configuration.yml")
+    start_proxmox_machine.startMachine()
+    #    - Run ansible playbook to upgrade openuc ----
+    os.system('ansible-playbook upgrade.yml')
+
+
+
+
+elif action == "stop":
+    #    - Stopping proxmox vm with proxmox API call ----
+    start_proxmox_machine.readCredentials("files/configuration/proxcred.yml")
+    start_proxmox_machine.readNode("files/configuration/configuration.yml")
+    start_proxmox_machine.stopMachine()
+    exit()
+
+
+elif action == "populate":
+    os.system('ansible-playbook populate.yml')
+    exit()
+
+
+else:
+    print "You can only chose install;upgrade or stop!!!"
+    exit()
+
+
+action2 = raw_input('Do you want to setup your server? Y/N\n')
+action2=action2.lower()
+if action2 == 'y':
+    os.system('ansible-playbook populate.yml')
+else:
+    exit()
+
+
+The above code is commented and self explanatory so I will mention only that I needed to create some Python modules from the original pyproxmox wrapper to make it easy to follow. Also note that we have 2 files one for credentials and one for the initial config that you will need to adapt to your own setup since with these 2 files we are creating some dependencies for pyproxmox and Ansible (create_inventory.createInventory() for example ).
+
+
+
+
+
+
+Step 3. A look at inventory.ini and script that creates it 
+Inventory.ini file is created by the create_inventory Python module. This is based on the proxcred file from which it will extract VM user and password and from the configuration file from which it will extract IP address of the VM:
+cat files/configuration/proxcred.yml
+
+
+proxuser: root@pam
+proxpass: qwe123
+vmuser: root
+superadmin: superadmin
+vmpass: 12345678
+
+
+cat files/configuration/configuration.yml
+
+
+node: px3
+vmid: 9000
+vmIP: 10.3.0.60
+oucVersion: 16.04
+sip_domain: mihai.test
+sip_realm: mihai.test
+net_domain: mihai.test
+net_host: uc1
+
+
+cat files/scripts/create_inventory.py
+
+
+#! /usr/bin/env python
+
+
+import configparser, requests, yaml, os, sys, argparse
+from pprint import pprint
+from ConfigParser import ConfigParser
+import os.path
+
+
+vmIP=""
+proxuser=""
+proxpass=""
+def readConfig(arg):
+    try:
+        os.path.isfile(arg)
+                
+        with open(arg, 'r') as stream:
+            global vmIP
+                vmIP=yaml.load(stream)['vmIP']
+            
+            
+    except:
+        print "EXCEPTION::Oops!  Something must be wrong with your configuration file (./files/configuration/configuration.yml.  Try again after you check that file..."  
+
+
+
+
+def readCredentials(arg):
+
+
+    try:
+        os.path.isfile(arg)
+        with open(arg, 'r') as stream:
+            global proxuser
+                proxuser=yaml.load(stream)['vmuser']
+                          
+        with open(arg, 'r') as stream:
+            global proxpass
+                   proxpass =str(yaml.load(stream)['vmpass'])
+           
+            
+    except:
+         print "EXCEPTION::Oops!  Something must be wrong with your proxmox credential file (./files/configuration/proxcred.yml.  Try again after you check that file..."
+
+
+def createInventory():
+
+
+    with open('inventory.ini', 'w') as outfile:
+            outfile.write("[proxmox]\n")
+            outfile.write(vmIP)
+                  outfile.write(" ansible_ssh_user=" + "\"" + proxuser +"\"")
+              outfile.write(" ansible_ssh_pass=" + "\"" + proxpass + "\"")
+
+
+
+
+$ cat inventory.ini
+[proxmox]
+10.3.0.60 ansible_ssh_user="root" ansible_ssh_pass="12345678"
+Step 4. Create Ansible playbooks 
+Install Playbook
+First let’s have a look at the install playbook:
+cat install.yml
+---
+- hosts: localhost
+  strategy: debug
+  vars_files:
+      - files/configuration/proxcred.yml
+      - files/configuration/configuration.yml
+  tasks:
+  - name: Wait for proxmox machine SSHD to start
+    wait_for: host={{ vmIP  }} port=22 delay=10 timeout=320
+
+
+- hosts: proxmox
+  strategy: debug
+  gather_facts: no
+  remote_user: root
+  vars_files:
+      - files/configuration/proxcred.yml
+      - files/configuration/configuration.yml
+  tasks:
+   - name: Install rsync
+     yum: name=rsync state=present
+  - name: Print url
+    debug: msg="https://download.ezuce.com/openuc-stage/{{oucVersion}}-unstable/openuc-{{oucVersion}}.0-centos.repo"
+  - name: Download desired openuc.repo
+    get_url:
+      force: yes
+      url: https://download.ezuce.com/openuc-stage/{{oucVersion}}-unstable/openuc-{{oucVersion}}.0-centos.repo
+      dest: /etc/yum.repos.d/openuc.repo
+      url_password: "{{ouc_download_user}}"
+      url_username: "{{ouc_download_pass}}"
+    register: get_url_log
+  - name: Print get_url_log_output
+    debug: var=get_url_log
+
+
+  - name: Installing openuc. Go get a coffee. It will take a while
+    script:  install_OUC.sh
+
+
+We will first use configuration and credential files defined a priori:
+vars_files:
+      - files/configuration/proxcred.yml
+      - files/configuration/configuration.yml
+
+
+Since startup script handles VM startup with Proxmox API calls  start_proxmox_machine.startMachine():, we will wait for sshd to start on the remote host   
+wait_for: host={{ vmIP  }} port=22 delay=10 timeout=320
+
+
+Using the get_url:  module we will download Uniteme stage repo since this is the one used by our QA team to test latest commits:
+url: https://download.ezuce.com/openuc-stage/{{oucVersion}}-unstable/openuc-{{oucVersion}}.0-centos.repo
+
+
+Note that we are using openuc repository credentials added in proxcred file
+url_password: "{{ouc_download_user}}"
+url_username: "{{ouc_download_pass}}"
+
+
+After repo file is downloaded we will install Uniteme (openuc) by executing: script:  install_OUC.sh
+We chose this  way of installing so we can have some output on the managed machine:
+cat install_OUC.sh
+#!/bin/bash
+yum clean all && yum install openuc -y
+
+
+Populate playbook
+Now let’s examine the populate.yml playbook
+
+
+This playbook will be used to configure Uniteme (openuc) and to add users. On the git link I’ve provided some sample phones; gateways and dialplan json files that  you can use in the same manner seen here for adding users:
+
+
+
+
+$ cat populate.yml
+---
+- hosts: proxmox
+
+
+  vars_files:
+      - files/configuration/proxcred.yml
+      - files/configuration/configuration.yml
+  gather_facts: no
+  remote_user: root
+  tasks:
+  - name: Configure openuc
+    shell: sipxecs-setup --noui --sip_domain "{{ sip_domain }}" --sip_realm "{{ sip_realm }}" --net_domain "{{ net_domain }}" --net_host "{{ net_host }}"
+ 
+  - name: Stop Iptables
+    command: service iptables stop
+ 
+ - name: Start services
+   script: files/scripts/start_services.sh
+
+
+
+
+  - name: copy superadmin.sql function to remote machine
+    copy: src="superadmin.sql"  dest="/var/log/superadmin.sql"
+
+
+
+
+   - name: Execute psql script
+     shell: psql -U postgres SIPXCONFIG -f /var/log/superadmin.sql
+
+
+- hosts: localhost
+   tasks:
+ - name: Use REST API to populate servers
+    script: files/scripts/add_users_API.py
+
+
+In this playbook we will connect to Proxmox host defined in inventory.ini where we will execute locally the configuration script:
+shell: sipxecs-setup --noui --sip_domain "{{ sip_domain }}" --sip_realm "{{ sip_realm }}" --net_domain "{{ net_domain }}" --net_host "{{ net_host }}" using variables defined in configuration file.
+
+
+We will then execute a psql stored procedure that will add the ‘superadmin’ user and a script that will start services on the remote node.
+
+
+Finally from the local machine we will execute a python script that will use REST API calls to populate openuc server with users, as seen here:
+$ cat files/scripts/add_users_API.py
+#!/usr/bin/env python
+import json, requests, yaml,configparser, requests, yaml, os, sys, argparse, os.path
+from pprint import pprint
+from ConfigParser import ConfigParser
+
+
+# to import local modules
+sys.path.append('files/scripts')
+import create_url
+output_json = yaml.load(open('files/json/users.json'))       # parse json file to extract entities  
+headers = {'content-type': 'application/json'}
+
+
+url= create_url.return_url()+'/users'
+for i in output_json:
+    for k in output_json[i]:
+        data=json.dumps(k,ensure_ascii=False)
+        new_data=data.encode("utf-8")
+        r = requests.post(url,data=new_data,verify=False,headers=headers) # POST data to REST API url
+
+
+This script is invoking a module created by me to define the url where to make API calls
+$ cat files/scripts/create_url.py
+#!/usr/bin/env python
+import json, requests, yaml,configparser, requests, yaml, os, sys, argparse, os.path
+from pprint import pprint
+from ConfigParser import ConfigParser
+
+
+vmIP=''
+superadmin=''
+vmpass=''
+
+
+def return_ip ():
+    raw_config_settins= open('files/configuration/configuration.yml', 'r')
+    config_settings = yaml.safe_load(raw_config_settins)
+    vmIP = str(config_settings['vmIP'])
+    return vmIP
+
+
+def return_superadmin ():
+    raw_cred_settings = open('files/configuration/proxcred.yml','r')
+    cred_settings = config_settings = yaml.safe_load(raw_cred_settings)
+    superadmin = str(cred_settings['superadmin'])
+    return superadmin
+
+
+def return_superadmin_pass():
+    raw_cred_settings = open('files/configuration/proxcred.yml','r')
+    cred_settings = config_settings = yaml.safe_load(raw_cred_settings)
+    vmpass = str(cred_settings['vmpass'])
+    return vmpass
+
+
+def return_url():
+    url = "https://"+return_superadmin()+":"+return_superadmin_pass()+"@"+return_ip()+"/sipxconfig/api"
+    return url
+
+
+After you have all these files in place and you change the configuration file according to your setup, run the initial docker command and follow the prompts:
+$  docker run -v `pwd`:`pwd` -w `pwd` -i -t management_machine:v1
+
+
+Do you want to Upgrade/Install/Stop or Populate a new uniteme machine? Answer with Upgrade/Install/Stop/Populate
+ 
+install
+>>>>>>Starting proxmox VM:  9000 >>>>>>
+
+
+PLAY [localhost] ***************************************************************
+
+
+TASK [setup] *******************************************************************
+ok: [localhost]
+
+
+As always you can download PoC (Proof of Concept files) with:
+git clone https://github.com/Mihai-CMM/Proxmox_Docker_Ansible.git
+
+
+If you improve it please share back with the community.
